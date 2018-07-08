@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import com.adirenato.cursomv.domain.Categoria;
 
+// auto mapeamento da DAO
+
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 
