@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.adirenato.cursomv.domain.Categoria;
 import com.adirenato.cursomv.domain.Cidade;
+import com.adirenato.cursomv.domain.Cliente;
+import com.adirenato.cursomv.domain.Endereco;
 import com.adirenato.cursomv.domain.Estado;
 import com.adirenato.cursomv.domain.Produto;
+import com.adirenato.cursomv.domain.enums.TipoCliente;
 import com.adirenato.cursomv.repositories.CategoriaRepository;
 import com.adirenato.cursomv.repositories.CidadeRepository;
+import com.adirenato.cursomv.repositories.ClienteRepository;
+import com.adirenato.cursomv.repositories.EnderecoRepository;
 import com.adirenato.cursomv.repositories.EstadoRepository;
 import com.adirenato.cursomv.repositories.ProdutoRepository;
 
@@ -26,6 +31,10 @@ public class CursomvApplication implements CommandLineRunner {
 	CidadeRepository cidadeRepository;
 	@Autowired 
 	EstadoRepository estadoRepository;
+	@Autowired
+	ClienteRepository clienteRepository;
+	@Autowired
+	EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomvApplication.class, args);
@@ -63,5 +72,18 @@ public class CursomvApplication implements CommandLineRunner {
 		
 		estadoRepository.saveAll(Arrays.asList(e1,e2));
 		cidadeRepository.saveAll(Arrays.asList(cid1,cid2,cid3));
+		
+		Cliente cl1 = new Cliente(null, "Maria Silva", "maria.silvia@pucrs.br","97812340082", TipoCliente.PESSOAFISICA);
+		cl1.getTelefone().addAll(Arrays.asList("5133200101","5133200102"));
+		
+		Endereco end1 = new Endereco(null, "Rua Flores", "300", "apto 033", "partenor", "91380000", cl1, cid3);
+		Endereco end2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "91380200", cl1, cid1);
+		
+		cl1.getEndereco().addAll(Arrays.asList(end1,end2));
+		
+		clienteRepository.saveAll(Arrays.asList(cl1));
+		enderecoRepository.saveAll(Arrays.asList(end1,end2));
+		
+		
 	}
 }
