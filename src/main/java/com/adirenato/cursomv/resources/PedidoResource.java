@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.adirenato.cursomv.domain.Pedido;
-import com.adirenato.cursomv.services.PedidoService;
+import com.adirenato.cursomv.domain.Categoria;
+import com.adirenato.cursomv.services.CategoriaService;
 
 @RestController
-@RequestMapping(value = "/pedidos")
-public class ClienteResource {
+@RequestMapping(value = "/categorias")
+public class PedidoResource {
 	@Autowired
-	PedidoService catService;
+	CategoriaService catService;
 	@RequestMapping(value="/{id}", method =RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Pedido cat = catService.buscar(id);  
+		Categoria cat = catService.buscar(id);  
 		return ResponseEntity.ok().body(cat);
 	}
 
