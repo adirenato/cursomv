@@ -1,6 +1,7 @@
 package com.adirenato.cursomv.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -10,7 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.adirenato.cursomv.domain.enums.EstadoPagamento;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 //duas estrategias tabelão ou cada classe herdada ter sua tabela
@@ -24,7 +25,7 @@ public abstract class Pagamento implements Serializable {
 	// @GeneratedValue(strategy =GenerationType.IDENTITY)
 	private Integer id;
 
-	@JsonBackReference
+	@JsonIgnore
 	// mesmo id do pedido (um pra um )
 	@OneToOne
 	@JoinColumn(name = "pedido_id") // nome que irá gerar na coluna
