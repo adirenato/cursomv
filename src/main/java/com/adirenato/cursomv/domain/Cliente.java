@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.adirenato.cursomv.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -30,13 +29,19 @@ public class Cliente implements Serializable {
 	private String email;
 	private String cpfOuCnpj;
 	private int tipo;
+
 	@JsonManagedReference
     @OneToMany(mappedBy="cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
+	
 	// set é uma coleção que não permite repetidos
     @ElementCollection
     @CollectionTable(name="TELEFONE")
 	private Set<String> telefone = new HashSet<>();
+    
+    @OneToMany(mappedBy="cliente")
+   // @JoinColumn(name="cliente_id")
+    private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente() {
 	}
@@ -129,6 +134,14 @@ public class Cliente implements Serializable {
 
 	public void setTelefone(Set<String> telefone) {
 		this.telefone = telefone;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 }
