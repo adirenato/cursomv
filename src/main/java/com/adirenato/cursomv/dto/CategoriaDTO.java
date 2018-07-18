@@ -2,6 +2,8 @@ package com.adirenato.cursomv.dto;
 
 import java.io.Serializable;
 
+import com.adirenato.cursomv.domain.Categoria;
+
 public class CategoriaDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -15,6 +17,12 @@ public class CategoriaDTO implements Serializable {
 		super();
 		this.id = id;
 		this.nome = nome;
+	}
+
+	public CategoriaDTO(Categoria cat) {
+		super();
+		this.id = cat.getId();
+		this.nome = cat.getNome();
 	}
 
 	public Integer getId() {

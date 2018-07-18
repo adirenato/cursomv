@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.adirenato.cursomv.domain.Categoria;
@@ -53,4 +56,13 @@ public class CategoriaService {
 			throw new ConstraintException("Objeto contém filhos não pode ser deletado;");
 		}
 	}
+
+	public Page<Categoria> paginacao(Integer page, Integer size, String direction, String orderby) {
+
+		PageRequest pageRequest = PageRequest.of(page, size, Direction.valueOf(direction), orderby);
+
+		return repo.findAll(pageRequest);
+
+	}
+
 }

@@ -4,11 +4,13 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -47,11 +49,23 @@ public class CategoriaResource {
 		service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable Integer id){
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(value = "/page")
+	public ResponseEntity<Page<CategoriaDTO>> paginacao(@RequestParam(name = "page", defaultValue = "0") Integer page,
+			@RequestParam(name = "size", defaultValue = "3") Integer size,
+			@RequestParam(name = "direction", defaultValue = "DESC") String direction,
+			@RequestParam(name = "orderby", defaultValue = "nome") String orderby) {
+
+		Page<Categoria> pages = service.paginacao(page, size, direction, orderby);
+		Page<CategoriaDTO> list = pages.map(obj-> new CategoriaDTO(obj));
+		
+		return ResponseEntity.ok().body(list);
 	}
 
 }
