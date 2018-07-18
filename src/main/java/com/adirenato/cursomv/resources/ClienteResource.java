@@ -15,9 +15,10 @@ import com.adirenato.cursomv.services.PedidoService;
 public class ClienteResource {
 	@Autowired
 	PedidoService catService;
-	@RequestMapping(value="/{id}", method =RequestMethod.GET)
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Pedido cat = catService.buscar(id);  
+		Pedido cat = catService.find(id);
 		return ResponseEntity.ok().body(cat);
 	}
 

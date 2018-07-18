@@ -14,10 +14,11 @@ import com.adirenato.cursomv.services.CategoriaService;
 @RequestMapping(value = "/categorias")
 public class PedidoResource {
 	@Autowired
-	CategoriaService catService;
-	@RequestMapping(value="/{id}", method =RequestMethod.GET)
+	CategoriaService service;
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Categoria cat = catService.buscar(id);  
+		Categoria cat = service.find(id);
 		return ResponseEntity.ok().body(cat);
 	}
 
